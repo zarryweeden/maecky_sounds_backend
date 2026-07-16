@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Low Stock Alert</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+    .wrapper { max-width: 600px; margin: 32px auto; background: #fff; border-radius: 8px; overflow: hidden; }
+    .header { background: #0A0A0B; padding: 28px 32px; text-align: center; }
+    .header h1 { color: #E8871A; font-size: 22px; margin: 0; }
+    .body { padding: 32px; }
+    .alert-box { background: #fff8e1; border: 1px solid #F59E0B; border-radius: 6px; padding: 20px; margin: 20px 0; }
+    .alert-box p { margin: 4px 0; font-size: 15px; color: #333; }
+    .stock-count { font-size: 28px; font-weight: 700; color: #F59E0B; font-family: monospace; }
+    .btn { display: inline-block; background: #E8871A; color: #000; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 15px; margin-top: 16px; }
+    .footer { background: #0A0A0B; padding: 20px 32px; text-align: center; }
+    .footer p { color: #5C5650; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header"><h1>Maecky Sounds — Stock Alert</h1></div>
+    <div class="body">
+      <h2>⚠ Low Stock Warning</h2>
+      <p>The following product is running low on stock and may need restocking:</p>
+      <div class="alert-box">
+        <p><strong>{{ product.name }}</strong></p>
+        <p>SKU: <code>{{ product.sku }}</code></p>
+        <p>Units remaining: <span class="stock-count">{{ stock }}</span></p>
+      </div>
+      <a href="{{ admin_url }}" class="btn">Go to Admin →</a>
+    </div>
+    <div class="footer"><p>© 2026 Maecky Sounds Ltd · Internal alert — do not reply</p></div>
+  </div>
+</body>
+</html>

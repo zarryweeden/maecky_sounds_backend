@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — {{ order.order_number }}</title>
+  <style>
+    body { font-family: 'Inter', Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+    .wrapper { max-width: 600px; margin: 32px auto; background: #ffffff; border-radius: 8px; overflow: hidden; }
+    .header { background: #0A0A0B; padding: 28px 32px; text-align: center; }
+    .header h1 { color: #E8871A; font-size: 22px; margin: 0; font-family: Georgia, serif; }
+    .header p { color: #A09B8C; margin: 6px 0 0; font-size: 13px; }
+    .body { padding: 32px; }
+    .body h2 { font-size: 20px; color: #1a1a1a; margin-bottom: 8px; }
+    .body p { color: #555; line-height: 1.7; font-size: 15px; }
+    .order-box { background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 6px; padding: 20px; margin: 24px 0; }
+    .order-box .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; }
+    .order-box .value { font-size: 18px; font-weight: 700; color: #E8871A; font-family: monospace; }
+    table.items { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    table.items th { background: #f0f0f0; padding: 10px 12px; text-align: left; font-size: 12px; color: #666; text-transform: uppercase; }
+    table.items td { padding: 12px; border-bottom: 1px solid #eee; font-size: 14px; color: #333; }
+    .totals { margin-top: 16px; }
+    .totals tr td { padding: 6px 12px; font-size: 14px; color: #555; }
+    .totals tr.total td { font-weight: 700; font-size: 16px; color: #1a1a1a; border-top: 2px solid #eee; }
+    .totals .amount { text-align: right; font-family: monospace; }
+    .btn { display: inline-block; background: #E8871A; color: #000; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 15px; margin-top: 20px; }
+    .footer { background: #0A0A0B; padding: 20px 32px; text-align: center; }
+    .footer p { color: #5C5650; font-size: 12px; margin: 4px 0; }
+    .footer a { color: #E8871A; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>Maecky Sounds</h1>
+      <p>Where Music Comes Alive · Nairobi, Kenya</p>
+    </div>
+    <div class="body">
+      <h2>Your order is confirmed! 🎸</h2>
+      <p>Hi {{ order.customer_name }}, thank you for shopping with Maecky Sounds. We've received your order and are getting it ready.</p>
+
+      <div class="order-box">
+        <div class="label">Order Number</div>
+        <div class="value">{{ order.order_number }}</div>
+        <div style="margin-top:12px;font-size:13px;color:#666;">
+          Estimated delivery: <strong>{{ order.estimated_delivery }}</strong>
+        </div>
+      </div>
+
+      <table class="items">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Qty</th>
+            <th style="text-align:right">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+          <tr>
+            <td>{{ item.product_name }}{% if item.variant_name %} ({{ item.variant_name }}){% endif %}</td>
+            <td>{{ item.quantity }}</td>
+            <td style="text-align:right;font-family:monospace;">KES {{ item.total_price|floatformat:0 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <table class="totals">
+        <tr><td>Subtotal</td><td class="amount">KES {{ order.subtotal|floatformat:0 }}</td></tr>
+        {% if order.discount_amount > 0 %}
+        <tr><td>Discount</td><td class="amount" style="color:#C0392B;">−KES {{ order.discount_amount|floatformat:0 }}</td></tr>
+        {% endif %}
+        <tr><td>Shipping</td><td class="amount">{% if order.shipping_cost == 0 %}Free{% else %}KES {{ order.shipping_cost|floatformat:0 }}{% endif %}</td></tr>
+        <tr class="total"><td>Total</td><td class="amount" style="color:#E8871A;">KES {{ order.total|floatformat:0 }}</td></tr>
+      </table>
+
+      <p><strong>Delivery address:</strong><br>
+        {{ order.shipping_address.full_name }}<br>
+        {{ order.shipping_address.address_line1 }}{% if order.shipping_address.address_line2 %}, {{ order.shipping_address.address_line2 }}{% endif %}<br>
+        {{ order.shipping_address.city }}, {{ order.shipping_address.county }}
+      </p>
+
+      <a href="{{ order_url }}" class="btn">View Order Status</a>
+    </div>
+    <div class="footer">
+      <p>Questions? Email us at <a href="mailto:{{ support_email }}">{{ support_email }}</a> or call <a href="tel:{{ store_phone }}">{{ store_phone }}</a></p>
+      <p>© 2026 Maecky Sounds Ltd · Kimathi Street, Nairobi CBD</p>
+    </div>
+  </div>
+</body>
+</html>
