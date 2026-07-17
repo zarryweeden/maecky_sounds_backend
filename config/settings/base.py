@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "storages",
-    "django_celery_beat",
+   # "django_celery_beat",
     # Local apps
     "apps.users",
     "apps.products",
