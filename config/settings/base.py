@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
 from decouple import config, Csv
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -254,14 +255,14 @@ CACHES = {
 }
 
 # ── Celery ────────────────────────────────────────────────────────────────────
-CELERY_BROKER_URL = config("REDIS_URL", default="redis://127.0.0.1:6379/0")
-CELERY_RESULT_BACKEND = config("REDIS_URL", default="redis://127.0.0.1:6379/0")
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE = "Africa/Nairobi"
-CELERY_TASK_ALWAYS_EAGER = False
-CELERY_TASK_EAGER_PROPAGATES = True
+#CELERY_BROKER_URL = config("REDIS_URL", default="redis://127.0.0.1:6379/0")
+#CELERY_RESULT_BACKEND = config("REDIS_URL", default="redis://127.0.0.1:6379/0")
+#CELERY_ACCEPT_CONTENT = ["json"]
+#CELERY_TASK_SERIALIZER = "json"
+#CELERY_RESULT_SERIALIZER = "json"
+#CELERY_TIMEZONE = "Africa/Nairobi"
+#CELERY_TASK_ALWAYS_EAGER = False
+#CELERY_TASK_EAGER_PROPAGATES = True
 
 # ── Storage ───────────────────────────────────────────────────────────────────
 USE_S3 = config("AWS_ACCESS_KEY_ID", default="") != ""
@@ -347,3 +348,10 @@ LOGGING = {
 }
 
 
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+}
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
