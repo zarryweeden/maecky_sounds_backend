@@ -1,7 +1,7 @@
 from .base import *
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-from sentry_sdk.integrations.celery import CeleryIntegration
+#from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 
 DEBUG = False
@@ -33,7 +33,6 @@ if SENTRY_DSN:
         dsn=SENTRY_DSN,
         integrations=[
             DjangoIntegration(transaction_style="url"),
-            CeleryIntegration(),
             RedisIntegration(),
         ],
         traces_sample_rate=0.2,
