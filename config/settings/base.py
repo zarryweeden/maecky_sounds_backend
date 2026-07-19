@@ -253,7 +253,8 @@ CSRF_TRUSTED_ORIGINS = config(
         http://localhost:3000,
         http://127.0.0.1:3000,
         http://localhost:5173,
-        http://127.0.0.1:5173
+        http://127.0.0.1:5173,
+        https://maeckysounds.netlify.app
     """,
     cast=Csv(),
 )
@@ -279,18 +280,18 @@ CACHES = {
 #CELERY_TASK_EAGER_PROPAGATES = True
 
 # ── Storage ───────────────────────────────────────────────────────────────────
-USE_S3 = config("AWS_ACCESS_KEY_ID", default="") != ""
+# USE_S3 = config("AWS_ACCESS_KEY_ID", default="") != ""
 
-if USE_S3:
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-    AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", default="")
-    AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", default="")
-    AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET_NAME", default="")
-    AWS_S3_REGION_NAME = config("AWS_REGION", default="us-east-1")
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = "public-read"
-    AWS_S3_CUSTOM_DOMAIN = f"{config('AWS_BUCKET_NAME', default='')}.s3.amazonaws.com"
-    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+# if USE_S3:
+#     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+#     AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", default="")
+#     AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", default="")
+#     AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET_NAME", default="")
+#     AWS_S3_REGION_NAME = config("AWS_REGION", default="us-east-1")
+#     AWS_S3_FILE_OVERWRITE = False
+#     AWS_DEFAULT_ACL = "public-read"
+#     AWS_S3_CUSTOM_DOMAIN = f"{config('AWS_BUCKET_NAME', default='')}.s3.amazonaws.com"
+#     MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
 
 # ── Email ─────────────────────────────────────────────────────────────────────
 EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
@@ -361,11 +362,10 @@ LOGGING = {
     },
 }
 
-
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME"),
-    "API_KEY": config("CLOUDINARY_API_KEY"),
-    "API_SECRET": config("CLOUDINARY_API_SECRET"),
+    "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME", default=""),
+    "API_KEY": config("CLOUDINARY_API_KEY", default=""),
+    "API_SECRET": config("CLOUDINARY_API_SECRET", default=""),
 }
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
