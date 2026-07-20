@@ -8,4 +8,4 @@ def handle_new_user(sender, instance, created, **kwargs):
     """Send welcome email on account creation."""
     if created:
         from apps.notifications.tasks import send_welcome_email
-        send_welcome_email.delay(str(instance.id))
+        #send_welcome_email.delay(str(instance.id))
