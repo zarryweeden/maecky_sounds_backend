@@ -170,12 +170,29 @@ class CategoryListView(generics.ListAPIView):
     pagination_class = None
 
     def get_queryset(self):
-        return (
-            Category.objects.filter(is_active=True, parent__isnull=True)
-            .annotate(product_count=Count("products", filter=Q(products__is_active=True)))
+
+        featured = self.request.query_params.get("featured")
+        cache_key = f"categories:{featured}"
+
+        queryset = (
+            Category.objects.filter(
+                is_active=True,
+                parent__isnull=True
+            )
+            .annotate(
+                product_count=Count(
+                    "products",
+                    filter=Q(products__is_active=True)
+                )
+            )
             .prefetch_related("children")
-            .order_by("sort_order", "name")
+            .order_by("display_order", "name")
         )
+
+        if featured == "true":
+            queryset = queryset.filter(featured=True)
+
+        return queryset
 
     def list(self, request, *args, **kwargs):
         # Cache the category tree for 1 hour

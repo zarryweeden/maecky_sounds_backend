@@ -39,14 +39,13 @@ class Category(models.Model):
     image = models.ImageField(upload_to="categories/", null=True, blank=True)
     icon = models.CharField(max_length=50, blank=True)
     is_active = models.BooleanField(default=True, db_index=True)
-    sort_order = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     featured = models.BooleanField(
         default=False,
         help_text="Display this category on the homepage."
     )
-    display_order = models.PositiveIntegerField(
+    sort_order = models.PositiveIntegerField(
         default=0,
         help_text="Lower numbers appear first."
     )

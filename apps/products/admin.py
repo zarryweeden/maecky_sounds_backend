@@ -140,13 +140,13 @@ class CategoryAdmin(admin.ModelAdmin):
         "name",
         "parent",
         "featured",
-        "display_order",
+        "sort_order",
         "is_active",
     )
 
     list_editable = (
         "featured",
-        "display_order",
+        "sort_order",
     )
 
     list_filter = (
@@ -160,7 +160,7 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
     ordering = (
-        "display_order",
+        "sort_order",
         "name",
     )
 

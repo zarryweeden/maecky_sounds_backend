@@ -50,9 +50,11 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = [
-            "id", "name", "slug", "description",
-            "image", "icon", "parent", "product_count",
-            "sort_order", "children", "created_at",
+            "id",
+            "name",
+            "slug",
+            "featured",
+            "sort_order",
         ]
         read_only_fields = fields
 
