@@ -186,7 +186,7 @@ class CategoryListView(generics.ListAPIView):
                 )
             )
             .prefetch_related("children")
-            .order_by("display_order", "name")
+            .order_by("sort_order", "name")
         )
 
         if featured == "true":
