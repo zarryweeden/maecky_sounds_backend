@@ -55,6 +55,12 @@ class CategorySerializer(serializers.ModelSerializer):
             "slug",
             "featured",
             "sort_order",
+            "children", 
+            "parent",
+            "product_count"
+
+
+
         ]
         read_only_fields = fields
 
