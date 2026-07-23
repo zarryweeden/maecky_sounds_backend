@@ -136,12 +136,43 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ["name", "slug", "parent", "is_active", "sort_order", "created_at"]
-    list_filter = ["is_active", "parent"]
-    search_fields = ["name", "slug"]
-    readonly_fields = ["id", "created_at", "updated_at"]
-    ordering = ["sort_order", "name"]
-    prepopulated_fields = {"slug": ("name",)}
+    list_display = (
+        "name",
+        "parent",
+        "featured",
+        "display_order",
+        "is_active",
+    )
+
+    list_editable = (
+        "featured",
+        "display_order",
+    )
+
+    list_filter = (
+        "featured",
+        "is_active",
+    )
+
+    search_fields = (
+        "name",
+        "slug",
+    )
+
+    ordering = (
+        "display_order",
+        "name",
+    )
+
+    readonly_fields = (
+        "id",
+        "created_at",
+        "updated_at",
+    )
+
+    prepopulated_fields = {
+        "slug": ("name",)
+    }
 
 
 @admin.register(Brand)
@@ -162,17 +193,3 @@ class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "featured",
-        "display_order",
-    )
-
-    list_editable = (
-        "featured",
-        "display_order",
-    )
-
-    ordering = ("display_order",)

@@ -42,6 +42,14 @@ class Category(models.Model):
     sort_order = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    featured = models.BooleanField(
+        default=False,
+        help_text="Display this category on the homepage."
+    )
+    display_order = models.PositiveIntegerField(
+        default=0,
+        help_text="Lower numbers appear first."
+    )
 
     class Meta:
         db_table = "categories"
