@@ -160,3 +160,19 @@ class TagAdmin(admin.ModelAdmin):
     search_fields = ["name", "slug"]
     readonly_fields = ["id", "created_at"]
     prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "featured",
+        "display_order",
+    )
+
+    list_editable = (
+        "featured",
+        "display_order",
+    )
+
+    ordering = ("display_order",)
