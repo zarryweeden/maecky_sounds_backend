@@ -25,6 +25,7 @@ class CategoryMiniSerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
 
+
 class CategoryChildSerializer(serializers.ModelSerializer):
     product_count = serializers.IntegerField(read_only=True)
     children = serializers.SerializerMethodField()
@@ -53,14 +54,14 @@ class CategorySerializer(serializers.ModelSerializer):
             "id",
             "name",
             "slug",
+            "description",
+            "image",
+            "icon",
             "featured",
             "sort_order",
-            "children", 
+            "children",
             "parent",
-            "product_count"
-
-
-
+            "product_count",
         ]
         read_only_fields = fields
 
